@@ -17,7 +17,7 @@
 
 <body>
   
-    <nav class="navbar navbar-dark navbar-expand-sm bg-primary fixed-top">
+    <nav class="navbar navbar-dark navbar-expand-sm  fixed-top">
         <div class="container">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Navbar">
                 <span class="navbar-toggler-icon"></span>
@@ -31,9 +31,15 @@
                     <li class="nav-item"><a class="nav-link" href="#"><span class="fa fa-list fa-lg"></span>Menu</a></li>
                     <li class="nav-item"><a class="nav-link" href="#"><span class="fa fa-address-card fa-lg"></span>Contact</a></li>
                 </ul> 
-                <!-- Model toggle for Login Modal-->
+                <!-- Model toggle for Login Modal (normal)
                 <span class="navbar-text">
                     <a data-toggle="modal" data-target="#loginModal">
+                    <span class="fa fa-sign-in"></span> Login</a>
+                </span>-->
+                
+                 <!-- Model toggle for Login Modal (using JQuery)-->
+                <span class="navbar-text">
+                    <a id="login">
                     <span class="fa fa-sign-in"></span> Login</a>
                 </span>
                 
@@ -190,15 +196,21 @@
                     data-toggle="tooltip" data-html="true"  title="Or Call us at  <br><strong>+852 12345678</strong>"
                     data-placement="bottom" href="#reserveform">Reserve Table</a>-->
 
-                    <!--Without Tooltip-->
+                    <!--Without Tooltip for normal data-toggle
                     <a role="button" class="btn btn-block nav-link btn-warning"  data-toggle="modal"
+                      href="#ReserveModal">Reserve Table</a>-->
+                    
+                      <!--using JQuery-->
+                      <a role="button" class="btn btn-block nav-link btn-warning"  id="reservetable"
                       href="#ReserveModal">Reserve Table</a>
+
                 </div>
             </div>
         </div>
     </header>
+    <div class="container col-12" id="bod">
 
-    <div class="container">
+    <div class="container" >
         <div class="row row-content">
             <div class="col">
                 <div id="mycarousel" class="carousel slide" data-ride="carousel">
@@ -238,6 +250,23 @@
                     <a class="carousel-control-next" href="#mycarousel" role="button" data-slide="next">
                         <span class="carousel-control-next-icon"></span>
                     </a>
+
+                    <!--JQuery carousel buttons for play and pause separetly
+                    <div class="btn-group" id="carouselbutton">
+                        <button class="btn btn-danger btn-sm" id="carousel-pause">
+                            <span class="fa fa-pause"></span>
+                        </button>
+                    
+                        <button class="btn btn-danger btn-sm" id="carousel-play">
+                            <span class="fa fa-play"></span>
+                        </button>
+                    </div>-->
+
+                    <!--JQuery carousel single button for both pause and play-->
+                    <button class="btn btn-danger btn-sm" id="carouselbutton">
+                        <span id="carousel-button-icon" class="fa fa-pause"> </span>
+                    </button>
+
                 </div>
              </div>
         </div>
@@ -369,7 +398,7 @@
         </div>-->
     </div>
     
-
+    </div>
     
 
     <footer class="footer">
@@ -432,7 +461,57 @@
     <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
     <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-   
+
+  <!--This is for separate buttons acting as pause and play
+     <script>
+        $(document).ready(function(){
+            $("#mycarousel").carousel( { interval: 2000 } );
+            $("#carousel-pause").click(function(){
+                $("#mycarousel").carousel('pause');
+            });
+            $("#carousel-play").click(function(){
+                $("#mycarousel").carousel('cycle');
+            });
+        });
+    </script>-->
+
+<!--This is fr a same button acting as pause and play-->
+
+<script>
+    $(document).ready(function(){
+        $("#mycarousel").carousel( { interval: 2000 } );
+        $("#carouselbutton").click(function(){
+    if ($("#carouselbutton").children("span").hasClass('fa-pause')) {
+        $("#mycarousel").carousel('pause');
+        $("#carouselbutton").children("span").removeClass('fa-pause');
+        $("#carouselbutton").children("span").addClass('fa-play');
+    }
+    else if ($("#carouselbutton").children("span").hasClass('fa-play')){
+        $("#mycarousel").carousel('cycle');
+        $("#carouselbutton").children("span").removeClass('fa-play');
+        $("#carouselbutton").children("span").addClass('fa-pause');                    
+    }
+    });
+});
+</script>
+
+<script>
+    $(document).ready(function(){
+        $("#reservetable").click(function(){
+            $("#ReserveModal").modal('toggle');
+
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function(){
+        $("#login").click(function(){
+            $("#loginModal").modal('toggle');
+        });
+    });
+</script>
+
    <!--JS code for Tooltip
    <script>
         $(document).ready(function(){
